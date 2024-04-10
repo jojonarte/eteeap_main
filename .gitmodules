@@ -1,0 +1,6 @@
+[submodule "client_service"]
+	path = client_service
+	url = git@github.com:jojonarte/eteeap_frontend.git
+[submodule "api_service"]
+	path = api_service
+	url = https://github.com/jojonarte/eteeap_backend
