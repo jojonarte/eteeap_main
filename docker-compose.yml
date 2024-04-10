@@ -1,0 +1,42 @@
+version: '3'
+services:
+  client-service:
+    restart: on-failure
+    working_dir: /opt/app
+    volumes:
+      - ./client-service:/opt/app
+    build:
+      context: ./client-service
+    ports:
+      - 3001:3001
+    depends_on:
+      - api-service
+  
+  api-service:
+    build:
+      context: ./api-service
+    restart: unless-stopped
+    working_dir: /opt/app
+    links:
+      - db
+    depends_on:
+      - db
+    volumes:
+      - ./api-service:/opt/app
+      - /opt/app/node_modules
+    ports:
+      - 3333:3333
+
+  db:
+    image: postgres:12
+    restart: always
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PW}
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+volumes:
+  db_data:
