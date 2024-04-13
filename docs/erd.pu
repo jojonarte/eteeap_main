@@ -1,0 +1,82 @@
+@startuml ERD
+entity User {
+  * **id number**
+  --
+  email string
+  password string
+  fullName string
+  * roleId number  <<FK>>
+}
+
+entity Vehicle {
+  * **id number**
+  --
+  brand string
+  make string
+  type car | motorcycle
+  model string
+  plateNumber string
+}
+
+entity Resident {
+  * **id number**
+  --
+  * userId number  <<FK>> {optional}
+  fullName string
+}
+
+entity ResidentHouse {
+  * **id number**
+  --
+  * houseId number <<FK>>
+  * residentId number <<FK>>
+}
+
+entity HouseVehicle {
+  * **id number**
+  --
+  * vehicleId number <<FK>>
+
+}
+
+
+entity House {
+  * **id number**
+  --
+  code string
+  street string
+}
+
+entity Role {
+  * **id number**
+  --
+  name string
+}
+
+entity Permission {
+  * **id number**
+  --
+  name string
+}
+
+entity RolePermission {
+  * **id number**
+  --
+  * roleId number <<FK>>
+  * permissionId number <<FK>>
+}
+
+entity EventType {
+  * **id number**
+  --
+  name string
+}
+
+entity EventLog {
+  * **id number**
+  --
+  * eventTypeId number <<FK>>
+  remarks string
+  attachments TEXT
+}
+@enduml
