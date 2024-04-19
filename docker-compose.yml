@@ -4,9 +4,9 @@ services:
     restart: on-failure
     working_dir: /opt/app
     volumes:
-      - ./client-service:/opt/app
+      - ./client_service:/opt/app
     build:
-      context: ./client-service
+      context: ./client_service
     ports:
       - 3001:3001
     depends_on:
@@ -14,7 +14,7 @@ services:
   
   api-service:
     build:
-      context: ./api-service
+      context: ./api_service
     restart: unless-stopped
     working_dir: /opt/app
     links:
@@ -22,7 +22,7 @@ services:
     depends_on:
       - db
     volumes:
-      - ./api-service:/opt/app
+      - ./api_service:/opt/app
       - /opt/app/node_modules
     ports:
       - 3333:3333
