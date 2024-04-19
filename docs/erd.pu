@@ -13,7 +13,7 @@ entity Vehicle {
   --
   brand string
   make string
-  type car | motorcycle
+  vehicleType car | motorcycle
   model string
   plateNumber string
 }
@@ -22,10 +22,16 @@ entity Resident {
   * **id number**
   --
   * userId number  <<FK>> {optional}
-  fullName string
 }
 
-entity ResidentHouse {
+entity Staff {
+  * **id number**
+  --
+  * userId number  <<FK>> {optional}
+  staffRole security | village_admin | maintenance
+}
+
+entity HouseResident {
   * **id number**
   --
   * houseId number <<FK>>
@@ -35,10 +41,11 @@ entity ResidentHouse {
 entity HouseVehicle {
   * **id number**
   --
+  * houseId number <<FK>>
   * vehicleId number <<FK>>
+  isVisiting boolean
 
 }
-
 
 entity House {
   * **id number**
@@ -66,17 +73,31 @@ entity RolePermission {
   * permissionId number <<FK>>
 }
 
-entity EventType {
-  * **id number**
-  --
-  name string
-}
-
 entity EventLog {
   * **id number**
   --
-  * eventTypeId number <<FK>>
+  * targetHouseId number <<FK>>
+  * reporterId number <<FK>>
+  * vehicleId number <<FK>>
+  eventTypeId delivery | visiting
   remarks string
-  attachments TEXT
+  attachments string
+  date timestamp
 }
+
+
+Resident ||..|| HouseResident
+Vehicle ||..|| HouseVehicle
+House ||..|{ HouseVehicle
+User ||..o| Resident
+User ||..o| Staff
+User ||..|{ Role
+Role ||..|{ RolePermission
+RolePermission ||..|| Permission
+HouseResident }|..|| House
+House ||..o{ EventLog
+User ||..o{ EventLog
+Vehicle ||..o{ EventLog
+
+
 @enduml
