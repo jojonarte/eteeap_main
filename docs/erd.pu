@@ -11,24 +11,10 @@ entity User {
 entity Vehicle {
   * **id number**
   --
-  brand string
   make string
-  vehicleType car | motorcycle
+  vehicle_type car | motorcycle
   model string
-  plateNumber string
-}
-
-entity Resident {
-  * **id number**
-  --
-  * userId number  <<FK>> {optional}
-}
-
-entity Staff {
-  * **id number**
-  --
-  * userId number  <<FK>> {optional}
-  staffRole security | village_admin | maintenance
+  plate_number string
 }
 
 entity HouseResident {
