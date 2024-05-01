@@ -20,17 +20,15 @@ entity Vehicle {
 entity HouseResident {
   * **id number**
   --
-  * houseId number <<FK>>
-  * residentId number <<FK>>
+  * house_id number <<FK>>
+  * user_id number <<FK>>
 }
 
 entity HouseVehicle {
   * **id number**
   --
-  * houseId number <<FK>>
-  * vehicleId number <<FK>>
-  isVisiting boolean
-
+  * house_id number <<FK>>
+  * vehicle_id number <<FK>>
 }
 
 entity House {
@@ -86,4 +84,4 @@ User ||..o{ EventLog
 Vehicle ||..o{ EventLog
 
 
-@enduml
+@endumloin
